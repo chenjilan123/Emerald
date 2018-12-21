@@ -9,6 +9,7 @@ using Pets.Data.Repositories;
 
 namespace Pets.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CatController : ControllerBase
@@ -24,6 +25,18 @@ namespace Pets.Controllers
         public async Task<ActionResult<List<Cat>>> GetAllAsync()
         {
             return await _repository.GetCatsAsync();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<Cat>> CreateAsync(Cat cat)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            await _repository.GetCatsAsync();
+            return CreatedAtAction(nameof(GetAllAsync), new { Id = cat.Id }, cat);
         }
     }
 }

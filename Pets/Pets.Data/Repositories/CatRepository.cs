@@ -38,5 +38,10 @@ namespace Pets.Data.Repositories
         {
             return await _context.Cats.ToListAsync();
         }
+        public async Task AddAsync(Cat cat)
+        {
+            _context.Cats.Add(cat);
+            await _context.SaveChangesAsync();
+        }
     }
 }
