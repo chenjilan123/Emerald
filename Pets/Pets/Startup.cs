@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Pets.Data;
 using Pets.Data.Repositories;
 
+//[assembly: ApiController]//Only for 2.2 or later
 namespace Pets
 {
     public class Startup
@@ -28,7 +29,15 @@ namespace Pets
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+                //ASP.Net Core 2.2
+                //.ConfigureApiBehaviorOptions(options =>
+                //{
+                //    options
+                //      .SuppressUseValidationProblemDetailsForInvalidModelStateResponses = true;
+                //});
 
             services.AddScoped<CatRepository>();
             services.AddDbContext<CatContext>(op => op.UseInMemoryDatabase("CatInventory"));
@@ -49,8 +58,13 @@ namespace Pets
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressConsumesConstraintForFormFileParameters = true;
-                options.SuppressInferBindingSourcesForParameters = true;
+                options.SuppressInferBindingSourcesForParameters = true;//抑制推断绑定？
+                
                 options.SuppressModelStateInvalidFilter = true;
+
+                //ASP.Net Core 2.2
+                //options.ClientErrorMapping[404].Link =
+                //    "https://httpstatuses.com/404";
             });
         }
 

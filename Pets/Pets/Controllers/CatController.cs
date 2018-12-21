@@ -43,10 +43,11 @@ namespace Pets.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<Cat>> CreateAsync(Cat cat)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            //应用ApiController后，无需该语句。
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest();
+            //}
             await _repository.AddAsync(cat);
             return CreatedAtAction(nameof(GetAllAsync), new { Id = cat.Id }, cat);
         }
