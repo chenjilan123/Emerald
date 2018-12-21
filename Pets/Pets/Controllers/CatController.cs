@@ -35,7 +35,7 @@ namespace Pets.Controllers
             {
                 return BadRequest();
             }
-            await _repository.GetCatsAsync();
+            await _repository.AddAsync(cat);
             return CreatedAtAction(nameof(GetAllAsync), new { Id = cat.Id }, cat);
         }
     }
