@@ -27,6 +27,18 @@ namespace Pets.Controllers
             return await _repository.GetCatsAsync();
         }
 
+        [HttpGet("id")]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<Cat>> GetCatAsync(int id)
+        {
+            var cat = await _repository.GetCatAsync(id);
+            if (cat == null)
+            {
+                return NotFound();//这样好吗？
+            }
+            return cat;
+        }
+
         [HttpPost]
         [ProducesResponseType(400)]
         public async Task<ActionResult<Cat>> CreateAsync(Cat cat)

@@ -34,6 +34,11 @@ namespace Pets.Data.Repositories
             }
         }
 
+        public async Task<Cat> GetCatAsync(int id)
+        {
+            return await _context.Cats.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
         public async Task<List<Cat>> GetCatsAsync()
         {
             return await _context.Cats.ToListAsync();
