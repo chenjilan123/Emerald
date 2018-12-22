@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Pets.Data;
 using Pets.Data.Repositories;
+using Pets.Services;
 
 //[assembly: ApiController]//Only for 2.2 or later
 namespace Pets
@@ -32,15 +33,20 @@ namespace Pets
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-                //ASP.Net Core 2.2
-                //.ConfigureApiBehaviorOptions(options =>
-                //{
-                //    options
-                //      .SuppressUseValidationProblemDetailsForInvalidModelStateResponses = true;
-                //});
-
+            //ASP.Net Core 2.2
+            //.ConfigureApiBehaviorOptions(options =>
+            //{
+            //    options
+            //      .SuppressUseValidationProblemDetailsForInvalidModelStateResponses = true;
+            //});
+            #region Cat
             services.AddScoped<CatRepository>();
             services.AddDbContext<CatContext>(op => op.UseInMemoryDatabase("CatInventory"));
+            #endregion
+
+            #region Book
+            services.AddScoped<BookService>(p => new BookService(Configuration.GetConnectionString("BookstoreDb")));
+            #endregion
 
             services.AddSwaggerGen(c =>
             {
