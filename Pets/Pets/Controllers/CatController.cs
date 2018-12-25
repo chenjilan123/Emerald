@@ -9,7 +9,7 @@ using Pets.Data.Repositories;
 
 namespace Pets.Controllers
 {
-    [Produces("application/json")]
+    //[Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CatController : ControllerBase
