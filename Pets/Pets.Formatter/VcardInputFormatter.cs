@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Pets.Formatter
 {
+    /// <summary>
+    /// Vcard 是一种联系人文档格式.vcf
+    /// </summary>
     public class VcardInputFormatter : TextInputFormatter
     {
         public VcardInputFormatter()
