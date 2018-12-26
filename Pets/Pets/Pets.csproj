@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pets.Data\Pets.Data.csproj" />
+    <ProjectReference Include="..\Pets.Formatter\Pets.Formatter.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets", "Pets\Pets.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.Data", "Pets.Data\Pets.Data.csproj", "{91749A14-7446-4E51-8B4F-A55FC5FDF6DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.Formatter", "Pets.Formatter\Pets.Formatter.csproj", "{F2CDCB86-2399-4DD4-9689-D9D347B20459}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{91749A14-7446-4E51-8B4F-A55FC5FDF6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91749A14-7446-4E51-8B4F-A55FC5FDF6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91749A14-7446-4E51-8B4F-A55FC5FDF6DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2CDCB86-2399-4DD4-9689-D9D347B20459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2CDCB86-2399-4DD4-9689-D9D347B20459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2CDCB86-2399-4DD4-9689-D9D347B20459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2CDCB86-2399-4DD4-9689-D9D347B20459}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

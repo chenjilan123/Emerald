@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Pets.Data;
 using Pets.Data.Repositories;
+using Pets.Formatter;
 using Pets.Services;
 
 //[assembly: ApiController]//Only for 2.2 or later
@@ -50,6 +51,11 @@ namespace Pets
                 //Json: body of null
                 //Xml : empty XML element with the attribute xsi:nil="true" set
                 options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+
+                //Use custom formatter.
+                //Formatters are evaluated in the order you insert them. The first one takes precedence.
+                options.OutputFormatters.Insert(0, new VcardOutputFormatter());
+                options.InputFormatters.Insert(0, new VcardInputFormatter());
             })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
