@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,9 +31,27 @@ namespace Pets
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddXmlSerializerFormatters();
+            //services.AddMvc()
+            //    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                //XmlFormatter
+                //.AddXmlSerializerFormatters();
+
+            services.AddMvc(options =>
+            {
+                //XmlFormatter
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                //options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+
+                //Generic type of class which implement IOutputFormatter 
+                //Without the TextOutputFormatter, string return types return 406 Not Acceptable, for example. Note that if an XML formatter exists, it will format string return types if the TextOutputFormatter is removed.
+                options.OutputFormatters.RemoveType<TextOutputFormatter>();
+                //Actions that have a model object return type will return a 204 No Content response when returning null.  This behavior can be removed by removing the HttpNoContentOutputFormatter.
+                //Without the HttpNoContentOutputFormatter, null objects are formatted using the configured formatter. For example, the JSON formatter will simply return a response with a body of null, while the XML formatter will return an empty XML element with the attribute xsi:nil="true" set.
+                //Json: body of null
+                //Xml : empty XML element with the attribute xsi:nil="true" set
+                options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+            })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //ASP.Net Core 2.2
             //.ConfigureApiBehaviorOptions(options =>
