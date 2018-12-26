@@ -29,6 +29,8 @@ namespace Pets.Controllers
 
         [HttpGet("id")]
         [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<Cat>> GetCatAsync(int id)
         {
             var cat = await _repository.GetCatAsync(id);
@@ -41,6 +43,8 @@ namespace Pets.Controllers
 
         [HttpPost]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<Cat>> CreateAsync(Cat cat)
         {
             //应用ApiController后，无需该语句。

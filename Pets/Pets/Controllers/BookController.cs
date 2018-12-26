@@ -27,6 +27,9 @@ namespace Pets.Controllers
         }
 
         [HttpGet("{id:length(24)}", Name = "GetBook")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public ActionResult<Book> Get(string id)
         {
             var book = _bookService.Get(id);
@@ -38,6 +41,8 @@ namespace Pets.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public ActionResult<Book> Create(Book book)
         {
             _bookService.Create(book);
@@ -45,6 +50,9 @@ namespace Pets.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public IActionResult Update(string id, Book bookIn)
         {
             var book = _bookService.Get(id);
@@ -57,6 +65,9 @@ namespace Pets.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public IActionResult Delete(string id)
         {
             var book = _bookService.Get(id);

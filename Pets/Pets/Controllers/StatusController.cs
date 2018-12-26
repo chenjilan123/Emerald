@@ -55,7 +55,7 @@ namespace Pets.Controllers
 
         //length=24，the request string length should be 24, or it will return 404 not found.
         [HttpGet("GetOK/{status:length(24)}", Name = "GetOK")]
-        public async Task<IActionResult> GetOK(string status)
+        public IActionResult GetOK(string status)
         {
             return Ok();
         }
