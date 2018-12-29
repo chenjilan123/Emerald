@@ -7,15 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets", "Pets\Pets.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets.Formatter", "Pets.Formatter\Pets.Formatter.csproj", "{10A289E1-86F5-4343-AF11-23B017950953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.Repository", "Pets.Repository\Pets.Repository.csproj", "{B005C093-A5F5-4A31-85A5-C5D3490916E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets.Repository", "Pets.Repository\Pets.Repository.csproj", "{B005C093-A5F5-4A31-85A5-C5D3490916E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.Model", "Pets.Model\Pets.Model.csproj", "{CE9A7F40-B1AA-4FD8-B5E0-71A6C83E85C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets.Model", "Pets.Model\Pets.Model.csproj", "{CE9A7F40-B1AA-4FD8-B5E0-71A6C83E85C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.MongoDb", "Pets.MongoDb\Pets.MongoDb.csproj", "{4ACB8AAB-32D6-4061-B075-E2E1437139B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets.MongoDb", "Pets.MongoDb\Pets.MongoDb.csproj", "{4ACB8AAB-32D6-4061-B075-E2E1437139B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.Factory", "Pets.Factory\Pets.Factory.csproj", "{07EEB853-81B3-4E25-AE7F-C34FB826AB8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets.Factory", "Pets.Factory\Pets.Factory.csproj", "{07EEB853-81B3-4E25-AE7F-C34FB826AB8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pets.Sql", "Pets.Sql\Pets.Sql.csproj", "{BD9F4B61-3754-4567-AD7F-9C040C693DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pets.Sql", "Pets.Sql\Pets.Sql.csproj", "{BD9F4B61-3754-4567-AD7F-9C040C693DCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DI", "DI", "{E94D3658-6D61-485F-9B12-A24A7910CBCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B005C093-A5F5-4A31-85A5-C5D3490916E0} = {E94D3658-6D61-485F-9B12-A24A7910CBCF}
+		{4ACB8AAB-32D6-4061-B075-E2E1437139B7} = {E94D3658-6D61-485F-9B12-A24A7910CBCF}
+		{07EEB853-81B3-4E25-AE7F-C34FB826AB8F} = {E94D3658-6D61-485F-9B12-A24A7910CBCF}
+		{BD9F4B61-3754-4567-AD7F-9C040C693DCB} = {E94D3658-6D61-485F-9B12-A24A7910CBCF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C9E8B9C-C793-46BB-9414-A24E708707E3}
