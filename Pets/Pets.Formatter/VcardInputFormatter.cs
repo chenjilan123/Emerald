@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
-using Pets.Data.Model;
+using Pets.Model;
 using System;
 using System.IO;
 using System.Text;

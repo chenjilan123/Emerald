@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Pets.Data.Model;
-using Pets.Data.Repositories;
+using Pets.Model;
+using Pets.Repository;
 
 namespace Pets.Controllers
 {
@@ -14,9 +14,9 @@ namespace Pets.Controllers
     [ApiController]
     public class CatController : ControllerBase
     {
-        private CatRepository _repository;
+        private ICatRepository _repository;
 
-        public CatController(CatRepository repository)
+        public CatController(ICatRepository repository)
         {
             this._repository = repository;
         }

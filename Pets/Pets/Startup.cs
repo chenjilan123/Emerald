@@ -12,10 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pets.Data;
-using Pets.Data.Repositories;
+using Pets.Factory;
 using Pets.Formatter;
-using Pets.Services;
 
 //[assembly: ApiController]//Only for 2.2 or later
 namespace Pets
@@ -66,12 +64,16 @@ namespace Pets
             //      .SuppressUseValidationProblemDetailsForInvalidModelStateResponses = true;
             //});
             #region Cat
-            services.AddScoped<CatRepository>();
-            services.AddDbContext<CatContext>(op => op.UseInMemoryDatabase("CatInventory"));
+            //services.AddScoped<CatRepository>();
+            //services.AddDbContext<CatContext>(op => op.UseInMemoryDatabase("CatInventory"));
             #endregion
 
             #region Book
-            services.AddScoped<BookService>(p => new BookService(Configuration.GetConnectionString("BookstoreDb")));
+            //services.AddScoped<BookService>(p => new BookService(Configuration.GetConnectionString("BookstoreDb")));
+            #endregion
+
+            #region Repository
+            services.AddRepositories();
             #endregion
 
             services.AddSwaggerGen(c =>

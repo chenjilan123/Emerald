@@ -19,8 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pets.Data\Pets.Data.csproj" />
+    <ProjectReference Include="..\Pets.Factory\Pets.Factory.csproj" />
     <ProjectReference Include="..\Pets.Formatter\Pets.Formatter.csproj" />
+    <ProjectReference Include="..\Pets.Model\Pets.Model.csproj" />
+    <ProjectReference Include="..\Pets.Repository\Pets.Repository.csproj" />
   </ItemGroup>
 
 </Project>

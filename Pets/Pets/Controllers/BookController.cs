@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pets.Model;
-using Pets.Services;
+using Pets.Repository;
 
 namespace Pets.Controllers
 {
@@ -13,9 +13,9 @@ namespace Pets.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly BookService _bookService;
+        private readonly IBookRepository _bookService;
 
-        public BookController(BookService bookService)
+        public BookController(IBookRepository bookService)
         {
             this._bookService = bookService;
         }

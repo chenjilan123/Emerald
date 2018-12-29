@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
-using Pets.Data.Model;
+using Pets.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

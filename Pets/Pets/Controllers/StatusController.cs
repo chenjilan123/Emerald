@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Pets.Data.Model;
+using Pets.Model;
 
 namespace Pets.Controllers
 {

@@ -6,23 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pets.Services
+namespace Pets.Repositories.MongoDb
 {
     public class BookService
     {
         private readonly IMongoCollection<Book> _books;
-        //public BookService(IConfiguration config)
-        //{
-        //    var client = new MongoClient(config.GetConnectionString("BookstoreDb"));
-        //    var database = client.GetDatabase("BookstoreDb");
-        //    _books = database.GetCollection<Book>("Books");
-        //}
-        public BookService(string connectionStr)
+        public BookService(IConfiguration config)
         {
-            var client = new MongoClient(connectionStr);
+            var client = new MongoClient(config.GetConnectionString("BookstoreDb"));
             var database = client.GetDatabase("BookstoreDb");
             _books = database.GetCollection<Book>("Books");
         }
+        //public BookService(string connectionStr) //这样子是有依赖的。
+        //{
+        //    var client = new MongoClient(connectionStr);
+        //    var database = client.GetDatabase("BookstoreDb");
+        //    _books = database.GetCollection<Book>("Books");
+        //}
 
         public List<Book> Get()
         {
