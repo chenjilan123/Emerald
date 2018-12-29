@@ -9,6 +9,7 @@ namespace Pets.Model
 {
     public class Book
     {
+        //Bson处理？
         public string Id { get; set; }
 
         //[BsonElement("Name")]
