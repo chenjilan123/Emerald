@@ -20,7 +20,6 @@ namespace Emerald
             //IStartupFilter is useful to ensure that a middleware runs before or after middleware added by libraries at the start or end of the app's request processing pipeline.
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
