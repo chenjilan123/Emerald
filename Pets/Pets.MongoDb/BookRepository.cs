@@ -33,7 +33,8 @@ namespace Pets.MongoDb
         public Book Get(string id)
         {
             //var docId = new ObjectId(id);
-            return _books.Find(book => book.Id == id).FirstOrDefault();
+            //return _books.Find(book => book.Id == id).FirstOrDefault();
+            return null;
         }
 
         public Book Create(Book book)
@@ -45,17 +46,20 @@ namespace Pets.MongoDb
         public void Update(string id, Book bookIn)
         {
             //var docId = new ObjectId(id);
-            _books.ReplaceOne(book => book.Id == id, bookIn);
+            return;
+            //_books.ReplaceOne(book => book.Id == id, bookIn);
         }
 
         public void Remove(string id)
         {
-            _books.DeleteOne(book => book.Id == id);
+            return;
+            //_books.DeleteOne(book => book.Id == id);
         }
 
         public void Remove(Book bookIn)
         {
-            _books.DeleteOne(book => book.Id == bookIn.Id);
+            return;
+            //_books.DeleteOne(book => book.Id == bookIn.Id);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Pets.Controllers
         public ActionResult<Book> Create(Book book)
         {
             _bookService.Create(book);
-            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+            return CreatedAtRoute("GetBook", book);//new { id = book.Id.ToString() }, book);
         }
 
         [HttpPut("{id:length(24)}")]
