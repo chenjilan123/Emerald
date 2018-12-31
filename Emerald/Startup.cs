@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Alexinea.Autofac.Extensions.DependencyInjection;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +25,7 @@ namespace Emerald
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -32,8 +34,38 @@ namespace Emerald
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IOperationTransient, Operation>();
+            services.AddScoped<IOperationScoped, Operation>();
+            services.AddSingleton<IOperationSingleton, Operation>();
+            services.AddSingleton<IOperationSingletonInstance>(new Operation(Guid.Empty));
+
+            //???
+            // OperationService depends on each of the other Operation types. 
+            services.AddTransient<OperationService, OperationService>();
+
+
+            //Disposal of services
+            // The container creates the following instances and disposes them automatically:
+            services.AddScoped<Service1>();
+            services.AddSingleton<Service2>();
+            services.AddSingleton<ISomeService>(sp => new SomeServiceImplementation());
+            // The container doesn't create the following instances, so it doesn't dispose of
+            // the instances automatically:
+            services.AddSingleton<Service3>(new Service3());
+            services.AddSingleton(new Service3());
+
+            //IoC Autofac:
+            // Add for other container framework
+
+            // Add Autofac
+            var containerBuilder = new ContainerBuilder();
+            //Autofac configure
+            containerBuilder.RegisterModule<DefaultModule>();
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +98,36 @@ namespace Emerald
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+    }
+    public class Service1 : IDisposable
+    {
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
+        }
+    }
+    public class Service2 : IDisposable
+    {
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
+        }
+    }
+    public class Service3 : IDisposable
+    {
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
+        }
+    }
+
+    public interface ISomeService { }
+    public class SomeServiceImplementation : ISomeService, IDisposable
+    {
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
         }
     }
 }
