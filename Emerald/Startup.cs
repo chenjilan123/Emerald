@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,7 +37,17 @@ namespace Emerald
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddRouting();
+
+            services.AddRouting(options =>
+            {
+                options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer);
+            });
+            services.AddMvc(options =>
+            {
+                //options.Conventions.Add(new RouteTokenTransformerConvention(
+                //                             new SlugifyParameterTransformer()));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddTransient<IOperationTransient, Operation>();
             services.AddScoped<IOperationScoped, Operation>();
@@ -91,12 +104,87 @@ namespace Emerald
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            //var consHandler = new RouteHandler(context =>
+            //{
+            //    //context.Response.
+            //});
+
             // the UseMvc extension method adds the Routing Middleware to the request pipeline and configures MVC as the default handler.
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Home}/{action=Index}/{id?}");
+
+                //Route
+                //routes.MapRoute(
+                //    name: "Constraint Demo",
+                //    //template: "{controller=Constraint}/{action=Hello}",
+                //    //template: "{controller}/{action}/{args?}",
+
+                //    //包含完整路径才能使用args
+                //    template: "{controller}/{action}/{args}",
+                //    defaults: new { controller = "Constraint", action = "Hello" }
+                //    );
+
+                //routes.MapRoute(
+                //    name: "Constraint Demo1",
+                //    //该配置只能使用默认控制器和默认方法，且路由必须由Hi/..起头
+                //    //注：{**args}中不能包含'%'
+                //    //{**args}: Catch-all route parameters 
+                //    template: "Hi/{**args}",
+                //    defaults: new { controller = "Constraint", action = "Hello" }
+                //    );
+                //});
+
+                //Add Token
+                //routes.MapRoute(
+                //    name: "Constraint Demo2",
+                //    //template: "zh-cn/Mobile/{args}",
+                //    //^[[a-z]]{{3}}$ ??
+
+                //    //Right: ^[a-z]{{2}}$
+                //    template: "{controller}/{action}/{args:regex(^[a-z]{{2}}$)}",
+                //    defaults: new { controller = "Constraint", action = "Hello" },
+                //    //字符串如何加约束？
+                //    //Wrong
+                //    //constraints: new { args = new StringRouteConstraint("minlength(1)") },
+                //    //Wrong
+                //    //constraints: new { args = "minlength(1)" },
+                //    //Right
+                //    constraints: new { },
+                //        //constraints: new { args = new IntRouteConstraint() },
+                //    dataTokens: new { locale = "zh-ch-mob" }
+                //            );
+
+                //Parameter Transformer: 
+                //1.Execute when generating a link for a Route.
+                //2.Implement Microsoft.AspNetCore.Routing.IOutboundParameterTransformer.
+                //3.Are configured using ConstraintMap.
+                //4.Take the parameter's route value and transform it to a new string value.
+                //5.Result in using the transformed value in the generated link.
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Home:slugify}/{action=Index:slugify}/{id?}");
+
+                //InvalidOperationException: The constraint reference 'slugify' could not be resolved to a type.Register the constraint type with 'Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap'.
+                //var routeOptions = new RouteOptions();
+                //routeOptions.ConstraintMap.Add("slugify", typeof(SlugifyParameterTransformer));
+                
+
+               //SlugifyParameterTransformer需要注册
+               routes.MapRoute(
+                      name: "default",
+                      //https://localhost:44320/slugify-demo/get-all/5
+                      //????
+                      //template: "{controller=Home:slugify}/{action=Index:slugify}/{id?}");
+                      //template: "{controller:slugify}/{action:slugify}/{id?}");
+
+                      //Success
+                      //ref: https://github.com/aspnet/AspNetCore/pull/4245/files
+                      template: "{controller:slugify}/{action:slugify}/{id?}",
+                      defaults: new { controller = "SlugifyDemo", action = "GetAll" }
+                      );
             });
         }
     }
