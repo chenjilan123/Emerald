@@ -1,0 +1,10 @@
+{
+  "Name": "Micheal",
+  "Phone": 15050004321,
+  "EmailAddress": "13900000@gmail.com",
+  "Home": {
+    "Country": "The U.S.A",
+    "City": "New York",
+    "Town": "Queen"
+  }
+}
