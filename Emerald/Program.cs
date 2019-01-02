@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -56,5 +57,13 @@ namespace Emerald
                     services.AddTransient<IStartupFilter, RequestSetOptionsStartupFilter>();
                 })
                 .UseStartup<Startup>();
+
+        //Startup Configure
+        //public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        //{
+        //    var assemblyName = typeof(Startup).GetTypeInfo().Assembly.FullName;
+        //    return WebHost.CreateDefaultBuilder(args)
+        //        .UseStartup(assemblyName);
+        //}
     }
 }

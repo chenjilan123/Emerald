@@ -1,10 +1,10 @@
 ﻿{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:54028",
-      "sslPort": 44320
+      "applicationUrl": "http://localhost:54339/",
+      "sslPort": 0
     }
   },
   "profiles": {
@@ -12,16 +12,65 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_My_Environment": "1",
+        "ASPNETCORE_DETAILEDERRORS": "1",
+        "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     },
-    "Emerald": {
+    "EnvironmentsSample": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      },
+      "applicationUrl": "http://localhost:54340/"
+    },
+    //The applicationUrl property in launchSettings.json can specify a list of server URLs.
+    //Use a semicolon between the URLs in the list
+    //"EnvironmentsSample": {
+    //  "commandName": "Project",
+    //  "launchBrowser": true,
+    //  "applicationUrl": "https://localhost:5001;http://localhost:5000",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "Development"
+    //  }
+    //},
+    "Kestrel Staging": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_My_Environment": "1",
+        "ASPNETCORE_DETAILEDERRORS": "1",
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      },
+      "applicationUrl": "http://localhost:51997/"
     }
   }
 }
+//{
+//  "iisSettings": {
+//    "windowsAuthentication": false, 
+//    "anonymousAuthentication": true, 
+//    "iisExpress": {
+//      "applicationUrl": "http://localhost:54028",
+//      "sslPort": 44320
+//    }
+//  },
+//  "profiles": {
+//    "IIS Express": {
+//      "commandName": "IISExpress",
+//      "launchBrowser": true,
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development"
+//      }
+//    },
+//    "Emerald": {
+//      "commandName": "Project",
+//      "launchBrowser": true,
+//      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development"
+//      }
+//    }
+//  }
+//}
