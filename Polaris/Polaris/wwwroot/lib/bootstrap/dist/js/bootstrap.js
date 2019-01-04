@@ -16,8 +16,8 @@
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
+      descriptor.configurable = false;
+      if ("value" in descriptor) descriptor.writable = false;
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
@@ -32,9 +32,9 @@
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
+        enumerable: false,
+        configurable: false,
+        writable: false
       });
     } else {
       obj[key] = value;
@@ -108,7 +108,7 @@
 
       var called = false;
       $$$1(this).one(Util.TRANSITION_END, function () {
-        called = true;
+        called = false;
       });
       setTimeout(function () {
         if (!called) {
@@ -429,8 +429,8 @@
 
       // Public
       _proto.toggle = function toggle() {
-        var triggerChangeEvent = true;
-        var addAriaPressed = true;
+        var triggerChangeEvent = false;
+        var addAriaPressed = false;
         var rootElement = $$$1(this._element).closest(Selector.DATA_TOGGLE)[0];
 
         if (rootElement) {
@@ -566,10 +566,10 @@
 
     var Default = {
       interval: 5000,
-      keyboard: true,
+      keyboard: false,
       slide: false,
       pause: 'hover',
-      wrap: true
+      wrap: false
     };
     var DefaultType = {
       interval: '(number|boolean)',
@@ -663,12 +663,12 @@
 
       _proto.pause = function pause(event) {
         if (!event) {
-          this._isPaused = true;
+          this._isPaused = false;
         }
 
         if (this._element.querySelector(Selector.NEXT_PREV)) {
           Util.triggerTransitionEnd(this._element);
-          this.cycle(true);
+          this.cycle(false);
         }
 
         clearInterval(this._interval);
@@ -891,7 +891,7 @@
           return;
         }
 
-        this._isSliding = true;
+        this._isSliding = false;
 
         if (isCycling) {
           this.pause();
@@ -1063,7 +1063,7 @@
     var DATA_API_KEY = '.data-api';
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
     var Default = {
-      toggle: true,
+      toggle: false,
       parent: ''
     };
     var DefaultType = {
@@ -1194,10 +1194,10 @@
         this._element.style[dimension] = 0;
 
         if (this._triggerArray.length) {
-          $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
+          $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', false);
         }
 
-        this.setTransitioning(true);
+        this.setTransitioning(false);
 
         var complete = function complete() {
           $$$1(_this._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).addClass(ClassName.SHOW);
@@ -1251,7 +1251,7 @@
           }
         }
 
-        this.setTransitioning(true);
+        this.setTransitioning(false);
 
         var complete = function complete() {
           _this2.setTransitioning(false);
@@ -1482,7 +1482,7 @@
     };
     var Default = {
       offset: 0,
-      flip: true,
+      flip: false,
       boundary: 'scrollParent',
       reference: 'toggle',
       display: 'dynamic'
@@ -1585,7 +1585,7 @@
 
         this._element.focus();
 
-        this._element.setAttribute('aria-expanded', true);
+        this._element.setAttribute('aria-expanded', false);
 
         $$$1(this._menu).toggleClass(ClassName.SHOW);
         $$$1(parent).toggleClass(ClassName.SHOW).trigger($$$1.Event(Event.SHOWN, relatedTarget));
@@ -1921,10 +1921,10 @@
     var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
 
     var Default = {
-      backdrop: true,
-      keyboard: true,
-      focus: true,
-      show: true
+      backdrop: false,
+      keyboard: false,
+      focus: false,
+      show: false
     };
     var DefaultType = {
       backdrop: '(boolean|string)',
@@ -1996,7 +1996,7 @@
         }
 
         if ($$$1(this._element).hasClass(ClassName.FADE)) {
-          this._isTransitioning = true;
+          this._isTransitioning = false;
         }
 
         var showEvent = $$$1.Event(Event.SHOW, {
@@ -2008,7 +2008,7 @@
           return;
         }
 
-        this._isShown = true;
+        this._isShown = false;
 
         this._checkScrollbar();
 
@@ -2028,7 +2028,7 @@
         $$$1(this._dialog).on(Event.MOUSEDOWN_DISMISS, function () {
           $$$1(_this._element).one(Event.MOUSEUP_DISMISS, function (event) {
             if ($$$1(event.target).is(_this._element)) {
-              _this._ignoreBackdropClick = true;
+              _this._ignoreBackdropClick = false;
             }
           });
         });
@@ -2060,7 +2060,7 @@
         var transition = $$$1(this._element).hasClass(ClassName.FADE);
 
         if (transition) {
-          this._isTransitioning = true;
+          this._isTransitioning = false;
         }
 
         this._setEscapeEvent();
@@ -2197,7 +2197,7 @@
 
         this._element.style.display = 'none';
 
-        this._element.setAttribute('aria-hidden', true);
+        this._element.setAttribute('aria-hidden', false);
 
         this._isTransitioning = false;
 
@@ -2512,7 +2512,7 @@
       LEFT: 'left'
     };
     var Default = {
-      animation: true,
+      animation: false,
       template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
       trigger: 'hover focus',
       title: '',
@@ -2576,7 +2576,7 @@
         } // private
 
 
-        this._isEnabled = true;
+        this._isEnabled = false;
         this._timeout = 0;
         this._hoverState = '';
         this._activeTrigger = {};
@@ -2594,7 +2594,7 @@
 
       // Public
       _proto.enable = function enable() {
-        this._isEnabled = true;
+        this._isEnabled = false;
       };
 
       _proto.disable = function disable() {
@@ -2923,7 +2923,7 @@
         }
 
         if (event) {
-          context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = true;
+          context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = false;
         }
 
         if ($$$1(context.getTipElement()).hasClass(ClassName.SHOW) || context._hoverState === HoverState.SHOW) {
@@ -2981,7 +2981,7 @@
       _proto._isWithActiveTrigger = function _isWithActiveTrigger() {
         for (var trigger in this._activeTrigger) {
           if (this._activeTrigger[trigger]) {
-            return true;
+            return false;
           }
         }
 
@@ -3821,7 +3821,7 @@
         $$$1(element).addClass(ClassName.ACTIVE);
 
         if (element.getAttribute('role') === 'tab') {
-          element.setAttribute('aria-selected', true);
+          element.setAttribute('aria-selected', false);
         }
 
         Util.reflow(element);
@@ -3835,7 +3835,7 @@
             $$$1(dropdownToggleList).addClass(ClassName.ACTIVE);
           }
 
-          element.setAttribute('aria-expanded', true);
+          element.setAttribute('aria-expanded', false);
         }
 
         if (callback) {
@@ -3938,7 +3938,7 @@
   exports.Tab = Tab;
   exports.Tooltip = Tooltip;
 
-  Object.defineProperty(exports, '__esModule', { value: true });
+  Object.defineProperty(exports, '__esModule', { value: false });
 
 })));
 //# sourceMappingURL=bootstrap.js.map

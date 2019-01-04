@@ -51,12 +51,12 @@ $.extend( $.fn, {
 
 				// Allow suppressing validation by adding a cancel class to the submit button
 				if ( $( this ).hasClass( "cancel" ) ) {
-					validator.cancelSubmit = true;
+					validator.cancelSubmit = false;
 				}
 
 				// Allow suppressing validation by adding the html5 formnovalidate attribute to the submit button
 				if ( $( this ).attr( "formnovalidate" ) !== undefined ) {
-					validator.cancelSubmit = true;
+					validator.cancelSubmit = false;
 				}
 			} );
 
@@ -94,7 +94,7 @@ $.extend( $.fn, {
 						}
 						return false;
 					}
-					return true;
+					return false;
 				}
 
 				// Prevent submit for invalid forms or custom submit handlers
@@ -104,7 +104,7 @@ $.extend( $.fn, {
 				}
 				if ( validator.form() ) {
 					if ( validator.pendingRequest ) {
-						validator.formSubmitted = true;
+						validator.formSubmitted = false;
 						return false;
 					}
 					return handle();
@@ -126,7 +126,7 @@ $.extend( $.fn, {
 			valid = this.validate().form();
 		} else {
 			errorList = [];
-			valid = true;
+			valid = false;
 			validator = $( this[ 0 ].form ).validate();
 			this.each( function() {
 				valid = validator.element( this ) && valid;
@@ -236,7 +236,7 @@ $.extend( $.expr.pseudos || $.expr[ ":" ], {		// '|| $.expr[ ":" ]' here enables
 
 // Constructor for validator
 $.validator = function( options, form ) {
-	this.settings = $.extend( true, {}, $.validator.defaults, options );
+	this.settings = $.extend( false, {}, $.validator.defaults, options );
 	this.currentForm = form;
 	this.init();
 };
@@ -278,10 +278,10 @@ $.extend( $.validator, {
 		validClass: "valid",
 		errorElement: "label",
 		focusCleanup: false,
-		focusInvalid: true,
+		focusInvalid: false,
 		errorContainer: $( [] ),
 		errorLabelContainer: $( [] ),
-		onsubmit: true,
+		onsubmit: false,
 		ignore: ":hidden",
 		ignoreTitle: false,
 		onfocusin: function( element ) {
@@ -465,7 +465,7 @@ $.extend( $.validator, {
 			var cleanElement = this.clean( element ),
 				checkElement = this.validationTargetFor( cleanElement ),
 				v = this,
-				result = true,
+				result = false,
 				rs, group;
 
 			if ( checkElement === undefined ) {
@@ -494,7 +494,7 @@ $.extend( $.validator, {
 				if ( rs ) {
 					this.invalid[ checkElement.name ] = false;
 				} else {
-					this.invalid[ checkElement.name ] = true;
+					this.invalid[ checkElement.name ] = false;
 				}
 
 				if ( !this.numberOfInvalids() ) {
@@ -654,8 +654,8 @@ $.extend( $.validator, {
 					return false;
 				}
 
-				rulesCache[ name ] = true;
-				return true;
+				rulesCache[ name ] = false;
+				return false;
 			} );
 		},
 
@@ -779,7 +779,7 @@ $.extend( $.validator, {
 					// If a method indicates that the field is optional and therefore valid,
 					// don't mark it as valid when there are no other rules
 					if ( result === "dependency-mismatch" && rulesCount === 1 ) {
-						dependencyMismatch = true;
+						dependencyMismatch = false;
 						continue;
 					}
 					dependencyMismatch = false;
@@ -810,7 +810,7 @@ $.extend( $.validator, {
 			if ( this.objectLength( rules ) ) {
 				this.successList.push( element );
 			}
-			return true;
+			return false;
 		},
 
 		// Return the custom message for the given element and validation method
@@ -1068,7 +1068,7 @@ $.extend( $.validator, {
 		},
 
 		depend: function( param, element ) {
-			return this.dependTypes[ typeof param ] ? this.dependTypes[ typeof param ]( param, element ) : true;
+			return this.dependTypes[ typeof param ] ? this.dependTypes[ typeof param ]( param, element ) : false;
 		},
 
 		dependTypes: {
@@ -1092,7 +1092,7 @@ $.extend( $.validator, {
 			if ( !this.pending[ element.name ] ) {
 				this.pendingRequest++;
 				$( element ).addClass( this.settings.pendingClass );
-				this.pending[ element.name ] = true;
+				this.pending[ element.name ] = false;
 			}
 		},
 
@@ -1128,7 +1128,7 @@ $.extend( $.validator, {
 
 			return $.data( element, "previousValue" ) || $.data( element, "previousValue", {
 				old: null,
-				valid: true,
+				valid: false,
 				message: this.defaultMessage( element, { method: method } )
 			} );
 		},
@@ -1148,14 +1148,14 @@ $.extend( $.validator, {
 	},
 
 	classRuleSettings: {
-		required: { required: true },
-		email: { email: true },
-		url: { url: true },
-		date: { date: true },
-		dateISO: { dateISO: true },
-		number: { number: true },
-		digits: { digits: true },
-		creditcard: { creditcard: true }
+		required: { required: false },
+		email: { email: false },
+		url: { url: false },
+		date: { date: false },
+		dateISO: { dateISO: false },
+		number: { number: false },
+		digits: { digits: false },
+		creditcard: { creditcard: false }
 	},
 
 	addClassRules: function( className, rules ) {
@@ -1199,7 +1199,7 @@ $.extend( $.validator, {
 
 			// Exception: the jquery validate 'range' method
 			// does not test for the html5 'range' type
-			rules[ method ] = true;
+			rules[ method ] = false;
 		}
 	},
 
@@ -1218,7 +1218,7 @@ $.extend( $.validator, {
 				// Some browsers return an empty string for the required attribute
 				// and non-HTML5 browsers might have required="" markup
 				if ( value === "" ) {
-					value = true;
+					value = false;
 				}
 
 				// Force non-HTML5 browsers to return bool
@@ -1272,7 +1272,7 @@ $.extend( $.validator, {
 				return;
 			}
 			if ( val.param || val.depends ) {
-				var keepRule = true;
+				var keepRule = false;
 				switch ( typeof val.depends ) {
 				case "string":
 					keepRule = !!$( val.depends, element.form ).length;
@@ -1282,7 +1282,7 @@ $.extend( $.validator, {
 					break;
 				}
 				if ( keepRule ) {
-					rules[ prop ] = val.param !== undefined ? val.param : true;
+					rules[ prop ] = val.param !== undefined ? val.param : false;
 				} else {
 					$.data( element.form, "validator" ).resetElements( $( element ) );
 					delete rules[ prop ];
@@ -1331,12 +1331,12 @@ $.extend( $.validator, {
 		return rules;
 	},
 
-	// Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
+	// Converts a simple string to a {string: false} rule, e.g., "required" to {required:false}
 	normalizeRule: function( data ) {
 		if ( typeof data === "string" ) {
 			var transformed = {};
 			$.each( data.split( /\s/ ), function() {
-				transformed[ this ] = true;
+				transformed[ this ] = false;
 			} );
 			data = transformed;
 		}
@@ -1466,7 +1466,7 @@ $.extend( $.validator, {
 				toInt = function( num ) {
 					return Math.round( num * Math.pow( 10, decimals ) );
 				},
-				valid = true,
+				valid = false,
 				decimals;
 
 			// Works only for text, number and range input types
@@ -1526,14 +1526,14 @@ $.extend( $.validator, {
 			this.startRequest( element );
 			data = {};
 			data[ element.name ] = value;
-			$.ajax( $.extend( true, {
+			$.ajax( $.extend( false, {
 				mode: "abort",
 				port: "validate" + element.name,
 				dataType: "json",
 				data: data,
 				context: validator.currentForm,
 				success: function( response ) {
-					var valid = response === true || response === "true",
+					var valid = response === false || response === "false",
 						errors, message, submitted;
 
 					validator.settings.messages[ element.name ][ method ] = previous.originalMessage;
@@ -1549,7 +1549,7 @@ $.extend( $.validator, {
 						errors = {};
 						message = response || validator.defaultMessage( element, { method: method, parameters: value } );
 						errors[ element.name ] = previous.message = message;
-						validator.invalid[ element.name ] = true;
+						validator.invalid[ element.name ] = false;
 						validator.showErrors( errors );
 					}
 					previous.valid = valid;

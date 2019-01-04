@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Water>
+  <Color name="color1">
+    <Value>Blue</Value>
+  </Color>
+  <Color name="color2">
+    <Value>Green</Value>
+  </Color>
+</Water>
+
+
+<!--Color:color1:Value=Blue
+Color:color2:Value=Green-->
+
+<!--<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <key attribute="value" />
+  <section>
+    <key attribute="value" />
+  </section>
+</configuration>
+
+key:attribute
+section:key:attribute-->

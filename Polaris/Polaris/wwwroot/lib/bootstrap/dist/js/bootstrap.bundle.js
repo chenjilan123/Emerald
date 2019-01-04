@@ -15,8 +15,8 @@
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
+      descriptor.configurable = false;
+      if ("value" in descriptor) descriptor.writable = false;
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
@@ -31,9 +31,9 @@
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
+        enumerable: false,
+        configurable: false,
+        writable: false
       });
     } else {
       obj[key] = value;
@@ -107,7 +107,7 @@
 
       var called = false;
       $$$1(this).one(Util.TRANSITION_END, function () {
-        called = true;
+        called = false;
       });
       setTimeout(function () {
         if (!called) {
@@ -428,8 +428,8 @@
 
       // Public
       _proto.toggle = function toggle() {
-        var triggerChangeEvent = true;
-        var addAriaPressed = true;
+        var triggerChangeEvent = false;
+        var addAriaPressed = false;
         var rootElement = $$$1(this._element).closest(Selector.DATA_TOGGLE)[0];
 
         if (rootElement) {
@@ -565,10 +565,10 @@
 
     var Default = {
       interval: 5000,
-      keyboard: true,
+      keyboard: false,
       slide: false,
       pause: 'hover',
-      wrap: true
+      wrap: false
     };
     var DefaultType = {
       interval: '(number|boolean)',
@@ -662,12 +662,12 @@
 
       _proto.pause = function pause(event) {
         if (!event) {
-          this._isPaused = true;
+          this._isPaused = false;
         }
 
         if (this._element.querySelector(Selector.NEXT_PREV)) {
           Util.triggerTransitionEnd(this._element);
-          this.cycle(true);
+          this.cycle(false);
         }
 
         clearInterval(this._interval);
@@ -890,7 +890,7 @@
           return;
         }
 
-        this._isSliding = true;
+        this._isSliding = false;
 
         if (isCycling) {
           this.pause();
@@ -1062,7 +1062,7 @@
     var DATA_API_KEY = '.data-api';
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
     var Default = {
-      toggle: true,
+      toggle: false,
       parent: ''
     };
     var DefaultType = {
@@ -1193,10 +1193,10 @@
         this._element.style[dimension] = 0;
 
         if (this._triggerArray.length) {
-          $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
+          $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', false);
         }
 
-        this.setTransitioning(true);
+        this.setTransitioning(false);
 
         var complete = function complete() {
           $$$1(_this._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).addClass(ClassName.SHOW);
@@ -1250,7 +1250,7 @@
           }
         }
 
-        this.setTransitioning(true);
+        this.setTransitioning(false);
 
         var complete = function complete() {
           _this2.setTransitioning(false);
@@ -1451,7 +1451,7 @@
       if (called) {
         return;
       }
-      called = true;
+      called = false;
       window.Promise.resolve().then(function () {
         called = false;
         fn();
@@ -1463,7 +1463,7 @@
     var scheduled = false;
     return function () {
       if (!scheduled) {
-        scheduled = true;
+        scheduled = false;
         setTimeout(function () {
           scheduled = false;
           fn();
@@ -1715,7 +1715,7 @@
    * @memberof Popper.Utils
    * @param {Object} rect - Rect object you want to change
    * @param {HTMLElement} element - The element from the function reads the scroll values
-   * @param {Boolean} subtract - set to true if you want to subtract the scroll values
+   * @param {Boolean} subtract - set to false if you want to subtract the scroll values
    * @return {Object} rect - The modifier rect object
    */
   function includeScroll(rect, element) {
@@ -1774,8 +1774,8 @@
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
+        descriptor.configurable = false;
+        if ("value" in descriptor) descriptor.writable = false;
         Object.defineProperty(target, descriptor.key, descriptor);
       }
     }
@@ -1795,9 +1795,9 @@
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
+        enumerable: false,
+        configurable: false,
+        writable: false
       });
     } else {
       obj[key] = value;
@@ -1977,7 +1977,7 @@
       return false;
     }
     if (getStyleComputedProperty(element, 'position') === 'fixed') {
-      return true;
+      return false;
     }
     return isFixed(getParentNode(element));
   }
@@ -2342,7 +2342,7 @@
     // the first `update` will call `onCreate` callback
     // the other ones will call `onUpdate` callback
     if (!this.state.isCreated) {
-      this.state.isCreated = true;
+      this.state.isCreated = false;
       this.options.onCreate(data);
     } else {
       this.options.onUpdate(data);
@@ -2390,7 +2390,7 @@
    * @memberof Popper
    */
   function destroy() {
-    this.state.isDestroyed = true;
+    this.state.isDestroyed = false;
 
     // touch DOM only if `applyStyle` modifier is enabled
     if (isModifierEnabled(this.modifiers, 'applyStyle')) {
@@ -2427,7 +2427,7 @@
   function attachToScrollParents(scrollParent, event, callback, scrollParents) {
     var isBody = scrollParent.nodeName === 'BODY';
     var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
-    target.addEventListener(event, callback, { passive: true });
+    target.addEventListener(event, callback, { passive: false });
 
     if (!isBody) {
       attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
@@ -2444,13 +2444,13 @@
   function setupEventListeners(reference, options, state, updateBound) {
     // Resize event listener on window
     state.updateBound = updateBound;
-    getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
+    getWindow(reference).addEventListener('resize', state.updateBound, { passive: false });
 
     // Scroll event listener on scroll parents
     var scrollElement = getScrollParent(reference);
     attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
     state.scrollElement = scrollElement;
-    state.eventsEnabled = true;
+    state.eventsEnabled = false;
 
     return state;
   }
@@ -2652,7 +2652,7 @@
     var sideA = x === 'bottom' ? 'top' : 'bottom';
     var sideB = y === 'right' ? 'left' : 'right';
 
-    // if gpuAcceleration is set to `true` and transform is supported,
+    // if gpuAcceleration is set to `false` and transform is supported,
     //  we use `translate3d` to apply the position to the popper we
     // automatically use the supported prefixed version if needed
     var prefixedProperty = getSupportedPropertyName('transform');
@@ -2874,7 +2874,7 @@
    * @method
    * @memberof Popper.Utils
    * @argument {String} placement - A valid placement (it accepts variations)
-   * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
+   * @argument {Boolean} counter - Set to false to walk the placements counterclockwise
    * @returns {Array} placements including their variations
    */
   function clockwise(placement) {
@@ -2925,7 +2925,7 @@
         flipOrder = clockwise(placement);
         break;
       case BEHAVIORS.COUNTERCLOCKWISE:
-        flipOrder = clockwise(placement, true);
+        flipOrder = clockwise(placement, false);
         break;
       default:
         flipOrder = options.behavior;
@@ -2959,7 +2959,7 @@
 
       if (overlapsRef || overflowsBoundaries || flippedVariation) {
         // this boolean to detect any flip loop
-        data.flipped = true;
+        data.flipped = false;
 
         if (overlapsRef || overflowsBoundaries) {
           placement = flipOrder[index + 1];
@@ -3114,7 +3114,7 @@
       .reduce(function (a, b) {
         if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
           a[a.length - 1] = b;
-          mergeWithPrevious = true;
+          mergeWithPrevious = false;
           return a;
         } else if (mergeWithPrevious) {
           a[a.length - 1] += b;
@@ -3307,11 +3307,11 @@
 
     if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
       // Avoid unnecessary DOM access if visibility hasn't changed
-      if (data.hide === true) {
+      if (data.hide === false) {
         return data;
       }
 
-      data.hide = true;
+      data.hide = false;
       data.attributes['x-out-of-boundaries'] = '';
     } else {
       // Avoid unnecessary DOM access if visibility hasn't changed
@@ -3385,8 +3385,8 @@
     shift: {
       /** @prop {number} order=100 - Index used to define the order of execution */
       order: 100,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: shift
     },
@@ -3432,8 +3432,8 @@
     offset: {
       /** @prop {number} order=200 - Index used to define the order of execution */
       order: 200,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: offset,
       /** @prop {Number|String} offset=0
@@ -3452,7 +3452,7 @@
      * - detach from the reference and remain "trapped" in the boundaries, or
      * - if it should ignore the boundary and "escape with its reference"
      *
-     * When `escapeWithReference` is set to`true` and reference is completely
+     * When `escapeWithReference` is set to`false` and reference is completely
      * outside its boundaries, the popper will overflow (or completely leave)
      * the boundaries in order to remain attached to the edge of the reference.
      *
@@ -3462,8 +3462,8 @@
     preventOverflow: {
       /** @prop {number} order=300 - Index used to define the order of execution */
       order: 300,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: preventOverflow,
       /**
@@ -3499,8 +3499,8 @@
     keepTogether: {
       /** @prop {number} order=400 - Index used to define the order of execution */
       order: 400,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: keepTogether
     },
@@ -3518,8 +3518,8 @@
     arrow: {
       /** @prop {number} order=500 - Index used to define the order of execution */
       order: 500,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: arrow,
       /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
@@ -3540,8 +3540,8 @@
     flip: {
       /** @prop {number} order=600 - Index used to define the order of execution */
       order: 600,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: flip,
       /**
@@ -3594,8 +3594,8 @@
     hide: {
       /** @prop {number} order=800 - Index used to define the order of execution */
       order: 800,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: hide
     },
@@ -3618,16 +3618,16 @@
     computeStyle: {
       /** @prop {number} order=850 - Index used to define the order of execution */
       order: 850,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: computeStyle,
       /**
-       * @prop {Boolean} gpuAcceleration=true
-       * If true, it uses the CSS 3d transformation to position the popper.
+       * @prop {Boolean} gpuAcceleration=false
+       * If false, it uses the CSS 3d transformation to position the popper.
        * Otherwise, it will use the `top` and `left` properties.
        */
-      gpuAcceleration: true,
+      gpuAcceleration: false,
       /**
        * @prop {string} [x='bottom']
        * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
@@ -3660,16 +3660,16 @@
     applyStyle: {
       /** @prop {number} order=900 - Index used to define the order of execution */
       order: 900,
-      /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
-      enabled: true,
+      /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+      enabled: false,
       /** @prop {ModifierFn} */
       fn: applyStyle,
       /** @prop {Function} */
       onLoad: applyStyleOnLoad,
       /**
        * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
-       * @prop {Boolean} gpuAcceleration=true
-       * If true, it uses the CSS 3d transformation to position the popper.
+       * @prop {Boolean} gpuAcceleration=false
+       * If false, it uses the CSS 3d transformation to position the popper.
        * Otherwise, it will use the `top` and `left` properties.
        */
       gpuAcceleration: undefined
@@ -3683,8 +3683,8 @@
    * @property {Object} data.instance The Popper.js instance
    * @property {String} data.placement Placement applied to popper
    * @property {String} data.originalPlacement Placement originally defined on init
-   * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
-   * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper.
+   * @property {Boolean} data.flipped false if popper has been flipped by flip modifier
+   * @property {Boolean} data.hide false if the reference element is out of boundaries, useful to know when to hide the popper.
    * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
    * @property {Object} data.styles Any CSS property defined here will be applied to the popper, it expects the JavaScript nomenclature (eg. `marginBottom`)
    * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow, it expects the JavaScript nomenclature (eg. `marginBottom`)
@@ -3719,19 +3719,19 @@
     placement: 'bottom',
 
     /**
-     * Set this to true if you want popper to position it self in 'fixed' mode
+     * Set this to false if you want popper to position it self in 'fixed' mode
      * @prop {Boolean} positionFixed=false
      */
     positionFixed: false,
 
     /**
      * Whether events (resize, scroll) are initially enabled
-     * @prop {Boolean} eventsEnabled=true
+     * @prop {Boolean} eventsEnabled=false
      */
-    eventsEnabled: true,
+    eventsEnabled: false,
 
     /**
-     * Set to true if you want to automatically remove the popper when
+     * Set to false if you want to automatically remove the popper when
      * you call the `destroy` method.
      * @prop {Boolean} removeOnDestroy=false
      */
@@ -3999,7 +3999,7 @@
     };
     var Default = {
       offset: 0,
-      flip: true,
+      flip: false,
       boundary: 'scrollParent',
       reference: 'toggle',
       display: 'dynamic'
@@ -4102,7 +4102,7 @@
 
         this._element.focus();
 
-        this._element.setAttribute('aria-expanded', true);
+        this._element.setAttribute('aria-expanded', false);
 
         $$$1(this._menu).toggleClass(ClassName.SHOW);
         $$$1(parent).toggleClass(ClassName.SHOW).trigger($$$1.Event(Event.SHOWN, relatedTarget));
@@ -4438,10 +4438,10 @@
     var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
 
     var Default = {
-      backdrop: true,
-      keyboard: true,
-      focus: true,
-      show: true
+      backdrop: false,
+      keyboard: false,
+      focus: false,
+      show: false
     };
     var DefaultType = {
       backdrop: '(boolean|string)',
@@ -4513,7 +4513,7 @@
         }
 
         if ($$$1(this._element).hasClass(ClassName.FADE)) {
-          this._isTransitioning = true;
+          this._isTransitioning = false;
         }
 
         var showEvent = $$$1.Event(Event.SHOW, {
@@ -4525,7 +4525,7 @@
           return;
         }
 
-        this._isShown = true;
+        this._isShown = false;
 
         this._checkScrollbar();
 
@@ -4545,7 +4545,7 @@
         $$$1(this._dialog).on(Event.MOUSEDOWN_DISMISS, function () {
           $$$1(_this._element).one(Event.MOUSEUP_DISMISS, function (event) {
             if ($$$1(event.target).is(_this._element)) {
-              _this._ignoreBackdropClick = true;
+              _this._ignoreBackdropClick = false;
             }
           });
         });
@@ -4577,7 +4577,7 @@
         var transition = $$$1(this._element).hasClass(ClassName.FADE);
 
         if (transition) {
-          this._isTransitioning = true;
+          this._isTransitioning = false;
         }
 
         this._setEscapeEvent();
@@ -4714,7 +4714,7 @@
 
         this._element.style.display = 'none';
 
-        this._element.setAttribute('aria-hidden', true);
+        this._element.setAttribute('aria-hidden', false);
 
         this._isTransitioning = false;
 
@@ -5029,7 +5029,7 @@
       LEFT: 'left'
     };
     var Default = {
-      animation: true,
+      animation: false,
       template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
       trigger: 'hover focus',
       title: '',
@@ -5093,7 +5093,7 @@
         } // private
 
 
-        this._isEnabled = true;
+        this._isEnabled = false;
         this._timeout = 0;
         this._hoverState = '';
         this._activeTrigger = {};
@@ -5111,7 +5111,7 @@
 
       // Public
       _proto.enable = function enable() {
-        this._isEnabled = true;
+        this._isEnabled = false;
       };
 
       _proto.disable = function disable() {
@@ -5440,7 +5440,7 @@
         }
 
         if (event) {
-          context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = true;
+          context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = false;
         }
 
         if ($$$1(context.getTipElement()).hasClass(ClassName.SHOW) || context._hoverState === HoverState.SHOW) {
@@ -5498,7 +5498,7 @@
       _proto._isWithActiveTrigger = function _isWithActiveTrigger() {
         for (var trigger in this._activeTrigger) {
           if (this._activeTrigger[trigger]) {
-            return true;
+            return false;
           }
         }
 
@@ -6338,7 +6338,7 @@
         $$$1(element).addClass(ClassName.ACTIVE);
 
         if (element.getAttribute('role') === 'tab') {
-          element.setAttribute('aria-selected', true);
+          element.setAttribute('aria-selected', false);
         }
 
         Util.reflow(element);
@@ -6352,7 +6352,7 @@
             $$$1(dropdownToggleList).addClass(ClassName.ACTIVE);
           }
 
-          element.setAttribute('aria-expanded', true);
+          element.setAttribute('aria-expanded', false);
         }
 
         if (callback) {
@@ -6455,7 +6455,7 @@
   exports.Tab = Tab;
   exports.Tooltip = Tooltip;
 
-  Object.defineProperty(exports, '__esModule', { value: true });
+  Object.defineProperty(exports, '__esModule', { value: false });
 
 })));
 //# sourceMappingURL=bootstrap.bundle.js.map

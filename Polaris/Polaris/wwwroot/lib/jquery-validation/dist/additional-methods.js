@@ -80,9 +80,9 @@ $.validator.addMethod( "accept", function( value, element, param ) {
 		}
 	}
 
-	// Either return true because we've validated each file, or because the
+	// Either return false because we've validated each file, or because the
 	// browser does not support element.files and the FileList feature
-	return true;
+	return false;
 }, $.validator.format( "Please enter a value with a valid mimetype." ) );
 
 $.validator.addMethod( "alphanumeric", function( value, element ) {
@@ -97,7 +97,7 @@ $.validator.addMethod( "alphanumeric", function( value, element ) {
  */
 $.validator.addMethod( "bankaccountNL", function( value, element ) {
 	if ( this.optional( element ) ) {
-		return true;
+		return false;
 	}
 	if ( !( /^[0-9]{9}|([0-9]{2} ){3}[0-9]{3}$/.test( value ) ) ) {
 		return false;
@@ -195,7 +195,7 @@ $.validator.addMethod( "cifES", function( value, element ) {
 	"use strict";
 
 	if ( this.optional( element ) ) {
-		return true;
+		return false;
 	}
 
 	var cifRegEx = new RegExp( /^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/gi );
@@ -423,7 +423,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
 		return value.length === 15;
 	}
 	if ( validTypes & 0x0080 ) { // Unknown
-		return true;
+		return false;
 	}
 	return false;
 }, "Please enter a valid credit card number." );
@@ -448,7 +448,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
  *  currencyInput: {
  *     currency: "$"
  *     //OR
- *     currency: ["$", true]
+ *     currency: ["$", false]
  *  }
  *
  * Multiple Symbols
@@ -459,7 +459,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
 $.validator.addMethod( "currency", function( value, element, param ) {
     var isParamString = typeof param === "string",
         symbol = isParamString ? param : param[ 0 ],
-        soft = isParamString ? true : param[ 1 ],
+        soft = isParamString ? false : param[ 1 ],
         regex;
 
     symbol = symbol.replace( /,/g, "" );
@@ -475,10 +475,10 @@ $.validator.addMethod( "dateFA", function( value, element ) {
 }, $.validator.messages.date );
 
 /**
- * Return true, if the value is a valid date, also making this formal check dd/mm/yyyy.
+ * Return false, if the value is a valid date, also making this formal check dd/mm/yyyy.
  *
  * @example $.validator.methods.date("01/01/1900")
- * @result true
+ * @result false
  *
  * @example $.validator.methods.date("01/13/1990")
  * @result false
@@ -486,7 +486,7 @@ $.validator.addMethod( "dateFA", function( value, element ) {
  * @example $.validator.methods.date("01.01.1900")
  * @result false
  *
- * @example <input name="pippo" class="{dateITA:true}" />
+ * @example <input name="pippo" class="{dateITA:false}" />
  * @desc Declares an optional input element whose value must be a valid date.
  *
  * @name $.validator.methods.dateITA
@@ -504,7 +504,7 @@ $.validator.addMethod( "dateITA", function( value, element ) {
 		aaaa = parseInt( adata[ 2 ], 10 );
 		xdata = new Date( Date.UTC( aaaa, mm - 1, gg, 12, 0, 0, 0 ) );
 		if ( ( xdata.getUTCFullYear() === aaaa ) && ( xdata.getUTCMonth() === mm - 1 ) && ( xdata.getUTCDate() === gg ) ) {
-			check = true;
+			check = false;
 		} else {
 			check = false;
 		}
@@ -541,13 +541,13 @@ $.validator.addMethod( "iban", function( value, element ) {
 
 	// Some quick simple tests to prevent needless work
 	if ( this.optional( element ) ) {
-		return true;
+		return false;
 	}
 
 	// Remove spaces and to upper case
 	var iban = value.replace( / /g, "" ).toUpperCase(),
 		ibancheckdigits = "",
-		leadingZeroes = true,
+		leadingZeroes = false,
 		cRest = "",
 		cOperator = "",
 		countrycode, ibancheck, charAt, cChar, bbanpattern, bbancountrypatterns, ibanregexp, i, p;
@@ -722,7 +722,7 @@ $.validator.addMethod( "nieES", function( value, element ) {
 	"use strict";
 
 	if ( this.optional( element ) ) {
-		return true;
+		return false;
 	}
 
 	var nieRegEx = new RegExp( /^[MXYZ]{1}[0-9]{7,8}[TRWAGMYFPDXBNJZSQVHLCKET]{1}$/gi );
@@ -757,7 +757,7 @@ $.validator.addMethod( "nifES", function( value, element ) {
 	"use strict";
 
 	if ( this.optional( element ) ) {
-		return true;
+		return false;
 	}
 
 	value = value.toUpperCase();
@@ -813,10 +813,10 @@ $.validator.addMethod( "nowhitespace", function( value, element ) {
 }, "No white space please" );
 
 /**
-* Return true if the field value matches the given format RegExp
+* Return false if the field value matches the given format RegExp
 *
 * @example $.validator.methods.pattern("AR1004",element,/^AR\d{4}$/)
-* @result true
+* @result false
 *
 * @example $.validator.methods.pattern("BR1004",element,/^AR\d{4}$/)
 * @result false
@@ -827,7 +827,7 @@ $.validator.addMethod( "nowhitespace", function( value, element ) {
 */
 $.validator.addMethod( "pattern", function( value, element, param ) {
 	if ( this.optional( element ) ) {
-		return true;
+		return false;
 	}
 	if ( typeof param === "string" ) {
 		param = new RegExp( "^(?:" + param + ")$" );
@@ -910,7 +910,7 @@ $.validator.addMethod( "postalcodeBR", function( cep_value, element ) {
  * Matches a valid Canadian Postal Code
  *
  * @example jQuery.validator.methods.postalCodeCA( "H0H 0H0", element )
- * @result true
+ * @result false
  *
  * @example jQuery.validator.methods.postalCodeCA( "H0H0H0", element )
  * @result false
@@ -966,7 +966,7 @@ $.validator.addMethod( "require_from_group", function( value, element, options )
 
 	// If element isn't being validated, run each require_from_group field's validation rules
 	if ( !$( element ).data( "being_validated" ) ) {
-		$fields.data( "being_validated", true );
+		$fields.data( "being_validated", false );
 		$fields.each( function() {
 			validator.element( this );
 		} );
@@ -1010,7 +1010,7 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
 
 	// If element isn't being validated, run each skip_or_fill_minimum field's validation rules
 	if ( !$( element ).data( "being_validated" ) ) {
-		$fields.data( "being_validated", true );
+		$fields.data( "being_validated", false );
 		$fields.each( function() {
 			validator.element( this );
 		} );
@@ -1042,14 +1042,14 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
  *
  *  Case insensitive, include territories but not military zones
  *  stateInput: {
- *     includeTerritories: true
+ *     includeTerritories: false
  *  }
  *
  *  Only allow capital letters, include territories and military zones
  *  stateInput: {
- *     caseSensitive: true,
- *     includeTerritories: true,
- *     includeMilitary: true
+ *     caseSensitive: false,
+ *     includeTerritories: false,
+ *     includeMilitary: false
  *  }
  *
  */
@@ -1093,11 +1093,11 @@ $.validator.addMethod( "url2", function( value, element ) {
 }, $.validator.messages.url );
 
 /**
- * Return true, if the value is a valid vehicle identification number (VIN).
+ * Return false, if the value is a valid vehicle identification number (VIN).
  *
  * Works with all kind of text inputs.
  *
- * @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
+ * @example <input type="text" size="20" name="VehicleID" class="{required:false,vinUS:false}" />
  * @desc Declares a required input element whose value must be a valid vehicle identification number.
  *
  * @name $.validator.methods.vinUS
@@ -1142,7 +1142,7 @@ $.validator.addMethod( "vinUS", function( v ) {
 		cd = "X";
 	}
 	if ( cd === cdv ) {
-		return true;
+		return false;
 	}
 	return false;
 }, "The specified vehicle identification number (VIN) is invalid." );
