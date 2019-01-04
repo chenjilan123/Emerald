@@ -68,6 +68,7 @@ namespace Polaris
                     //内存配置
                     //config.AddInMemoryCollection((arrayDict));
                     //文件配置(json, xml, ini)
+
                     config.AddIniFile("Building.ini", optional: true, reloadOnChange: true);
                     //The JSON Configuration Provider is established first. Therefore, user secrets, environment variables, and command-line arguments override configuration set by the appsettings files.
                     config.AddJsonFile("hierarchy.json", optional: false, reloadOnChange: false);
