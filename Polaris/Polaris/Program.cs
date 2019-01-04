@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.CommandLine;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
+using Microsoft.Extensions.Configuration.Ini;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Configuration.Xml;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
 namespace Polaris
@@ -33,9 +37,14 @@ namespace Polaris
         {
             CreateWebHostBuilder(args).Build().Run();
 
-            //Configuration Provider
+            //Configuration providers
             CommandLineConfigurationProvider p1;
             EnvironmentVariablesConfigurationProvider p2;
+            FileConfigurationProvider p3;
+            IniConfigurationProvider p4;
+            JsonConfigurationProvider p5;
+            XmlConfigurationProvider p6;
+            IFileProvider fp;
 
 
             // Method 2: 
@@ -57,9 +66,11 @@ namespace Polaris
                 {
                     config.SetBasePath(Directory.GetCurrentDirectory());
                     //内存配置
-                    config.AddInMemoryCollection((arrayDict));
+                    //config.AddInMemoryCollection((arrayDict));
                     //文件配置(json, xml, ini)
-                    //config.AddJsonFile("hierarchy.json", optional: false, reloadOnChange: false);
+                    config.AddIniFile("Building.ini", optional: true, reloadOnChange: true);
+                    //The JSON Configuration Provider is established first. Therefore, user secrets, environment variables, and command-line arguments override configuration set by the appsettings files.
+                    config.AddJsonFile("hierarchy.json", optional: false, reloadOnChange: false);
                     //config.AddJsonFile("keyvault.json", optional: false, reloadOnChange: false);
                     //config.AddXmlFile("Section.xml", optional: false, reloadOnChange: false);
                     //EntityFramework Provider
