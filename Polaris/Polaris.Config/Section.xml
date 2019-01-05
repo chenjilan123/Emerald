@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Buildings>
+  <Bridge>
+    <Length>5000</Length>
+    <Height>40</Height>
+  </Bridge>
+</Buildings>
