@@ -37,6 +37,7 @@ namespace Polaris.Config
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
+                    //应用程序是在IIS Express根目录运行，而非项目根目录。
                     // C:\\Program Files\\IIS Express
                     var basePath = Directory.GetCurrentDirectory();
                     basePath = Path.Combine(basePath, "config");

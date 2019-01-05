@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polaris.Config.Models;
 
 namespace Polaris.Config
 {
@@ -25,6 +26,28 @@ namespace Polaris.Config
         public void ConfigureServices(IServiceCollection services)
         {
             var value = Configuration["watchsunshine0"];
+
+            //GetValue
+            var value1 = Configuration.GetValue<int>("section0:floar0");
+            //GetSection
+            var section = Configuration.GetSection("Home");
+            var counter = section["Country"];
+            //Bind to class
+            //ini
+            var building = new Building();
+            Configuration.GetSection("section0").Bind(building);
+            //Json
+            Home home = new Home();
+            section.Bind(home);
+            //Xml
+            //var water = Configuration.GetValue<Water>("Water");
+
+            //Bind to class grapgy
+            //Xml Wrong?
+            //var water = new Water();
+            //Configuration.GetSection("Water").Bind(water);
+            //Bind array
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
