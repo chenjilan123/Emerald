@@ -47,6 +47,7 @@ namespace Polaris
             {
                 //Order 3
                 _logger.LogInformation("Environment: development");
+                //Enable the Developer Exception Page only when the app is running in the Development environment. You don't want to share detailed exception information publicly when the app runs in production. Learn more about configuring environments.
                 app.UseDeveloperExceptionPage();
             }
             else
