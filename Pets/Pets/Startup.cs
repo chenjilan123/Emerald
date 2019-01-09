@@ -112,7 +112,10 @@ namespace Pets
             else
             {
                 app.UseHsts();
+                //app.UseExceptionHandler("/error");
             }
+
+            app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
 
             app.UseHttpsRedirection();
             app.UseSwagger();
