@@ -97,6 +97,13 @@ namespace Polaris
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            // Authenticate before the user accesses secure resources.
+            app.UseAuthentication();
+
+            // If the app uses session state, call Session Middleware after Cookie 
+            // Policy Middleware and before MVC Middleware.
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
