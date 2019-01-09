@@ -26,6 +26,12 @@ namespace Polaris.Controllers
             }
             _logger.LogInformation("IndexIndexIndexIndexIndexIndexIndexIndexIndexIndexIndexIndexIndex");
 
+            //var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
+            //if (statusCodePagesFeature != null)
+            //{
+            //    statusCodePagesFeature.Enabled = false;
+            //}
+
             return View();
         }
 
