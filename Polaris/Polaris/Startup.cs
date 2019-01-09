@@ -58,6 +58,19 @@ namespace Polaris
                 app.UseHsts();
             }
 
+            //UseStatusCodePages should be called before request handling middlewares in the pipeline
+            //Status code pages
+            //app.UseStatusCodePages();            
+            //app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
+            //app.UseStatusCodePages(async context =>
+            //{
+            //    context.HttpContext.Response.ContentType = "text/plain";
+
+            //    await context.HttpContext.Response.WriteAsync(
+            //        "Status code page, status code: " +
+            //        context.HttpContext.Response.StatusCode);
+            //});
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
