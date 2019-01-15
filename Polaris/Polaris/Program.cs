@@ -26,7 +26,7 @@ namespace Polaris
             //}
 
             IApplicationBuilder app;
-            IRouteBuilder router;
+            IRouteBuilder router1;
             
             using (var host = WebHost.Start("http://localhost:8080", router => router
                 .MapGet("hello/{name}", (req, res, data) =>
