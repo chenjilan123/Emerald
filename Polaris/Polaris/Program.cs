@@ -41,9 +41,7 @@ namespace Polaris
 
 
             var host = CreateWebHostBuilder(args).Build();
-
             var logger = host.Services.GetRequiredService<ILogger<Program>>();
-
             //Order 2
             logger.LogInformation("Application running");
 
