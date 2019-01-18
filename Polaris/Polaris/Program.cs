@@ -45,8 +45,8 @@ namespace Polaris
             //    host.WaitForShutdown();
             //}
 
-            IApplicationBuilder app;
-            IRouteBuilder router1;
+            //IApplicationBuilder app;
+            //IRouteBuilder router1;
 
             IApplicationLifetime appLifetime = null;
             appLifetime.ApplicationStarted.Register(OnStarted);
