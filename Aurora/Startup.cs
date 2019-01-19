@@ -32,12 +32,13 @@ namespace Aurora
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddHttpClient();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<AuroraContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AuroraContext")));
+                    //options.UseSqlServer(Configuration.GetConnectionString("AuroraContext")));
+                    options.UseInMemoryDatabase());
             
         }
 
