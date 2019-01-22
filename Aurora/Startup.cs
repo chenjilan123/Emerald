@@ -32,7 +32,16 @@ namespace Aurora
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            //Add HttpClients
             services.AddHttpClient();
+            services.AddHttpClient("github", c =>
+            {
+                c.BaseAddress = new Uri("http://api.github.com/");
+                c.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3-json");
+                c.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
+            });
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
