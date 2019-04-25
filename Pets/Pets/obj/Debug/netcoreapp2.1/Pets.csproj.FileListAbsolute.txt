@@ -1,0 +1,17 @@
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.deps.json
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.runtimeconfig.json
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.runtimeconfig.dev.json
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.dll
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.pdb
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.Data.dll
+P:\GitHub\Emerald\Pets\Pets\bin\Debug\netcoreapp2.1\Pets.Data.pdb
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.csprojAssemblyReference.cache
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.csproj.CoreCompileInputs.cache
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.RazorAssemblyInfo.cache
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.RazorAssemblyInfo.cs
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.AssemblyInfoInputs.cache
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.AssemblyInfo.cs
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.RazorTargetAssemblyInfo.cache
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.csproj.CopyComplete
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.dll
+P:\GitHub\Emerald\Pets\Pets\obj\Debug\netcoreapp2.1\Pets.pdb
