@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,10 @@ namespace Pets.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Book>> Get()
         {
+            Thread.Sleep(2000);
             return _bookService.Get();
         }
+
 
         [HttpGet("{id:length(24)}", Name = "GetBook")]
         public ActionResult<Book> Get(string id)
@@ -37,12 +40,22 @@ namespace Pets.Controllers
             return book;
         }
 
-        [HttpPost]
-        public ActionResult<Book> Create(Book book)
+
+        [HttpPost(Name = "PostBook")]
+        public ActionResult<IEnumerable<Book>> PostBook()
         {
-            _bookService.Create(book);
-            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+            //超时测试
+            Thread.Sleep(15000);
+            return _bookService.Get();
         }
+
+        //[HttpPost]
+        //public ActionResult<Book> Create(Book book)
+        //{
+        //    return new Book();
+        //    //_bookService.Create(book);
+        //    //return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+        //}
 
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Book bookIn)
