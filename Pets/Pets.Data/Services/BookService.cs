@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using Pets.Data.Config;
 using Pets.Model;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,14 @@ namespace Pets.Services
         //    var database = client.GetDatabase("BookstoreDb");
         //    _books = database.GetCollection<Book>("Books");
         //}
+
+        public BookService(IBookstoreDatabaseSettings settings)
+        {
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _books = database.GetCollection<Book>(settings.BookstoreCollectionName);
+        }
+
         public BookService(string connectionStr)
         {
             var client = new MongoClient(connectionStr);

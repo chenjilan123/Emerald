@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CatContext.cs" />
+    <Compile Include="Config\BookstoreDatabaseSettings.cs" />
+    <Compile Include="Config\IBookstoreDatabaseSettings.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Cat.cs" />
     <Compile Include="Model\HEZDAlarmData.cs" />

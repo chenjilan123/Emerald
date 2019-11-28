@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Pets.Data;
+using Pets.Data.Config;
 using Pets.Data.Repositories;
 using Pets.Services;
 
@@ -33,8 +34,8 @@ namespace Pets
         {
             //services.AddMvc()
             //    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-                //XmlFormatter
-                //.AddXmlSerializerFormatters();
+            //XmlFormatter
+            //.AddXmlSerializerFormatters();
 
             services.AddMvc(options =>
             {
@@ -61,11 +62,17 @@ namespace Pets
             //});
             #region Cat
             services.AddScoped<CatRepository>();
-            services.AddDbContext<CatContext>(op => op.UseInMemoryDatabase("CatInventory"));
+            //.Net Core 2.0
+            //services.AddDbContext<CatContext>(op => op.UseInMemoryDatabase("CatInventory"));
             #endregion
 
             #region Book
-            services.AddScoped<BookService>(p => new BookService(Configuration.GetConnectionString("BookstoreDb")));
+            services.Configure<BookstoreDatabaseSettings>(Configuration.GetSection(nameof(BookstoreDatabaseSettings)));
+
+            services.AddSingleton<IBookstoreDatabaseSettings>(sp => sp.GetRequiredService<IOptions<BookstoreDatabaseSettings>>().Value);
+            services.AddScoped<BookService>();
+
+            //services.AddScoped<BookService>(p => new BookService(Configuration.GetConnectionString("BookstoreDb")));
             #endregion
 
             services.AddSwaggerGen(c =>
@@ -92,6 +99,9 @@ namespace Pets
                 //options.ClientErrorMapping[404].Link =
                 //    "https://httpstatuses.com/404";
             });
+
+            //services.AddControllers()
+            //    .AddNew
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
