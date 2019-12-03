@@ -92,7 +92,7 @@ namespace Pets
             {
                 options.SuppressConsumesConstraintForFormFileParameters = true;
                 options.SuppressInferBindingSourcesForParameters = true;//抑制推断绑定？
-                
+
                 options.SuppressModelStateInvalidFilter = true;
 
                 //ASP.Net Core 2.2
@@ -125,5 +125,5 @@ namespace Pets
                 });
             app.UseMvc();
         }
-}
+    }
 }
