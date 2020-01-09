@@ -11,7 +11,7 @@ namespace Pets.Data.Model
     public class Cat
     {
         public int Id { get; set; }
-        [Required]
+        //[Required]
         public string Name { get; set; }
         public float Weight { get; set; }
         public Color Color { get; set; }
